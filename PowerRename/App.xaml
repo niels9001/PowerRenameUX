@@ -1,0 +1,29 @@
+﻿<Application
+    x:Class="PowerRename.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PowerRename">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.ThemeDictionaries>
+
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="BackgroundAcrylicBrush" BackgroundSource="HostBackdrop" TintColor="White" TintOpacity="0.7" FallbackColor="{ThemeResource SystemChromeMediumLowColor}"/>
+                    <Color x:Key="DropShadowColor">#FF979797</Color>
+                    <Color x:Key="SolidBackgroundColor">White</Color>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Default">
+                    <AcrylicBrush x:Key="BackgroundAcrylicBrush" BackgroundSource="HostBackdrop" TintColor="Black" TintOpacity="0.85" FallbackColor="{ThemeResource SystemChromeMediumLowColor}"/>
+                    <Color x:Key="DropShadowColor">#FF000000</Color>
+                    <Color x:Key="SolidBackgroundColor">#212122</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

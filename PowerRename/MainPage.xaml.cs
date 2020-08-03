@@ -40,6 +40,8 @@ namespace PowerRename
                 new FileName() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg" }
             };
         }
+
+   
     }
 
     public class FileName

@@ -16,12 +16,14 @@
                     <AcrylicBrush x:Key="BackgroundAcrylicBrush" BackgroundSource="HostBackdrop" TintColor="White" TintOpacity="0.7" FallbackColor="{ThemeResource SystemChromeMediumLowColor}"/>
                     <Color x:Key="DropShadowColor">#FF979797</Color>
                     <Color x:Key="SolidBackgroundColor">White</Color>
+                    <SolidColorBrush x:Key="SnippetBackgroundBrush">#FFFFFF</SolidColorBrush>
                 </ResourceDictionary>
 
                 <ResourceDictionary x:Key="Default">
                     <AcrylicBrush x:Key="BackgroundAcrylicBrush" BackgroundSource="HostBackdrop" TintColor="Black" TintOpacity="0.85" FallbackColor="{ThemeResource SystemChromeMediumLowColor}"/>
                     <Color x:Key="DropShadowColor">#FF000000</Color>
                     <Color x:Key="SolidBackgroundColor">#212122</Color>
+                    <SolidColorBrush x:Key="SnippetBackgroundBrush">#171717</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>

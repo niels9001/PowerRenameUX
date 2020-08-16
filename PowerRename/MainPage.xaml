@@ -192,19 +192,18 @@
             <Setter Property="HeaderStyle" Value="{StaticResource HeaderToggleButtonStyle}"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
-
-
     </Page.Resources>
     <Grid Background="{StaticResource BackgroundAcrylicBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="86"/>
+            <RowDefinition Height="36"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource SolidBackgroundColor}" Grid.Row="3"
+        <Grid Background="{StaticResource SolidBackgroundColor}"
+              Grid.Row="3"
               Grid.RowSpan="3"/>
 
         <!--<TextBlock Text="Preview results"
@@ -214,19 +213,55 @@
                    VerticalAlignment="Center"
                    Margin="12,24,0,0"/>-->
 
-        <TextBlock Text="Rename criteria"
+        <!--<TextBlock Text="Rename criteria"
                    FontWeight="Bold"
                    FontSize="16"
                    Style="{ThemeResource TitleTextBlockStyle}"
                    VerticalAlignment="Center"
-                   Margin="12,24,0,0" />
+                   Margin="12,48,0,0" />-->
 
         <StackPanel Grid.Row="2" Spacing="0" Margin="0,12,0,12">
-            <RichEditBox Header="Search for" Margin="12,6,12,0" />
-            <TextBox Header="Replace with" Margin="12,12,12,0" />
+            <TextBox Header="Search for" Margin="12,0,12,0" />
+            <Grid Margin="12,12,12,0">
+            
+                <TextBox x:Name="ReplaceWidthTextBox" Header="Replace with"/>
+                <Button FontFamily="Segoe MDL2 Assets" Margin="0,22,2,0" Background="Transparent" Content="&#xE943;" HorizontalAlignment="Right">
+                    <Button.Flyout>
+                        <Flyout>
+                        <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="28"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="RegEx cheatsheet" FontWeight="SemiBold" />
+                                <ListView ItemsSource="{x:Bind RegExShortcuts}"
+                                          Grid.Row="1"
+                                          IsItemClickEnabled="True"
+                                          ItemClick="ListView_ItemClick"
+                                          Margin="-4,12,0,0">
+                                    <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:RegExShortcut">
+                                <StackPanel Orientation="Horizontal" Spacing="8" Margin="-8,0,0,0">
+                                                <ToolkitControls:DropShadowPanel ShadowOpacity="0.2" OffsetX="0" OffsetY="1" BlurRadius="2">
+                                                    <Border CornerRadius="2" Padding="8" Background="{ThemeResource SnippetBackgroundBrush}">
+                                                        <TextBlock FontFamily="Consolas" Text="{x:Bind Code}"/>
+                                                    </Border>
+                                                </ToolkitControls:DropShadowPanel>
+                                                <TextBlock Text="{x:Bind Description}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                        </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+           
             <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
                            Header="Advanced options" HorizontalContentAlignment="Stretch"
                            IsExpanded="False"
+                           Margin="0,12,0,0"
                            HorizontalAlignment="Stretch"
                            ExpandDirection="Down">
                 <Grid Margin="12,0,12,0" HorizontalAlignment="Stretch">
@@ -268,36 +303,40 @@
             </ToolkitControls:Expander>
         </StackPanel>
 
-        <Border CornerRadius="2"        Margin="12"   Grid.Row="3" BorderBrush="Red" BorderThickness="1">
+        <Border CornerRadius="2"
+                Margin="12"
+                Grid.Row="3"
+                BorderBrush="{ThemeResource TextControlBorderBrush}"
+                BorderThickness="1">
             <ToolkitControls:DataGrid
-         
-            x:Name="dataGrid"
-     
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            HorizontalScrollBarVisibility="Visible"
-            VerticalScrollBarVisibility="Visible"
-            AlternatingRowBackground="Transparent"
-            AlternatingRowForeground="Gray"
-            AreRowDetailsFrozen="False"
-            AreRowGroupHeadersFrozen="True"
-            AutoGenerateColumns="False"
-            CanUserSortColumns="False"
-            CanUserReorderColumns="True"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="32"
-            MaxColumnWidth="400"
-            FrozenColumnCount="0"
-            GridLinesVisibility="None"
-            HeadersVisibility="Column"
-            IsReadOnly="False"
-            ItemsSource="{x:Bind FileNames}"
-            RowDetailsVisibilityMode="Collapsed"
-            SelectionMode="Extended"
-            RowGroupHeaderPropertyNameAlternative="Range">
+                x:Name="dataGrid"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="True"
+                ItemsSource="{x:Bind FileNames}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Single"
+                
+                RowGroupHeaderPropertyNameAlternative="Range">
                 <ToolkitControls:DataGrid.Columns>
-                    <ToolkitControls:DataGridTextColumn Header="Original" Binding="{Binding Original}" Tag="Original" />
-                    <ToolkitControls:DataGridTextColumn Header="Renamed" Binding="{Binding Renamed}" Tag="Renamed" />
+                    <ToolkitControls:DataGridCheckBoxColumn IsReadOnly="True" />
+                    <ToolkitControls:DataGridTextColumn Header="Original" IsReadOnly="True" Binding="{Binding Original}" Tag="Original" />
+                    <ToolkitControls:DataGridTextColumn Header="Renamed" IsReadOnly="True" Binding="{Binding Renamed}" Tag="Renamed" />
                 </ToolkitControls:DataGrid.Columns>
             </ToolkitControls:DataGrid>
         </Border>

@@ -195,13 +195,34 @@
     </Page.Resources>
     <Grid Background="{StaticResource BackgroundAcrylicBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="1"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="86"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" x:Name="PreviewColumn"/>
+            <ColumnDefinition Width="360" />
+        </Grid.ColumnDefinitions>
 
+        <Grid Grid.Column="0"
+              Background="{ThemeResource SolidBackgroundColor}"
+              Grid.RowSpan="3"/>
+        
+        <TextBlock Text="Preview"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   Grid.Column="0"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   Margin="12,36,0,0"/>
+
+        <TextBlock Text="Search criteria"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   Grid.Column="1"
+                   Style="{ThemeResource TitleTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   Margin="12,36,0,0" />
         <Grid Background="{StaticResource SolidBackgroundColor}"
               Grid.Row="3"
               Grid.RowSpan="3"/>
@@ -220,92 +241,117 @@
                    VerticalAlignment="Center"
                    Margin="12,48,0,0" />-->
 
-        <StackPanel Grid.Row="2" Spacing="0" Margin="0,12,0,12">
-            <TextBox Header="Search for" Margin="12,0,12,0" />
-            <Grid Margin="12,12,12,0">
-            
-                <TextBox x:Name="ReplaceWidthTextBox" Header="Replace with"/>
-                <Button FontFamily="Segoe MDL2 Assets" Margin="0,22,2,0" Background="Transparent" Content="&#xE943;" HorizontalAlignment="Right">
-                    <Button.Flyout>
-                        <Flyout>
-                        <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="28"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="RegEx cheatsheet" FontWeight="SemiBold" />
-                                <ListView ItemsSource="{x:Bind RegExShortcuts}"
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="0" Margin="0,12,0,12">
+            <TextBox Header="Search for" Margin="12,0,12,0">
+                <ToolTipService.ToolTip>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="RegEx cheatsheet" FontWeight="SemiBold" />
+                        <ListView ItemsSource="{x:Bind SearchRegExShortcuts}"
                                           Grid.Row="1"
                                           IsItemClickEnabled="True"
                                           ItemClick="ListView_ItemClick"
                                           Margin="-4,12,0,0">
-                                    <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="local:RegExShortcut">
-                                <StackPanel Orientation="Horizontal" Spacing="8" Margin="-8,0,0,0">
-                                                <ToolkitControls:DropShadowPanel ShadowOpacity="0.2" OffsetX="0" OffsetY="1" BlurRadius="2">
-                                                    <Border CornerRadius="2" Padding="8" Background="{ThemeResource SnippetBackgroundBrush}">
-                                                        <TextBlock FontFamily="Consolas" Text="{x:Bind Code}"/>
-                                                    </Border>
-                                                </ToolkitControls:DropShadowPanel>
-                                                <TextBlock Text="{x:Bind Description}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="local:RegExShortcut">
+                                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="-8,0,0,0">
+                                        <ToolkitControls:DropShadowPanel ShadowOpacity="0.2" OffsetX="0" OffsetY="1" BlurRadius="2">
+                                            <Border CornerRadius="2" Padding="8" Background="{ThemeResource SnippetBackgroundBrush}">
+                                                <TextBlock FontFamily="Consolas" Text="{x:Bind Code}"/>
+                                            </Border>
+                                        </ToolkitControls:DropShadowPanel>
+                                        <TextBlock Text="{x:Bind Description}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </ToolTipService.ToolTip>
+            </TextBox>
+            <Grid Margin="12,12,12,0">
+
+                <TextBox x:Name="ReplaceWidthTextBox" Header="Replace with">
+                    <ToolTipService.ToolTip>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="28"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="File creation cheatsheet" FontWeight="SemiBold" />
+                            <ListView ItemsSource="{x:Bind FileRegExShortcuts}"
+                                          Grid.Row="1"
+                                          IsItemClickEnabled="True"
+                                          ItemClick="ListView_ItemClick"
+                                          Margin="-4,12,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="local:RegExShortcut">
+                                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="-8,0,0,0">
+                                            <ToolkitControls:DropShadowPanel ShadowOpacity="0.2" OffsetX="0" OffsetY="1" BlurRadius="2">
+                                                <Border CornerRadius="2" Padding="8" Background="{ThemeResource SnippetBackgroundBrush}">
+                                                    <TextBlock FontFamily="Consolas" Text="{x:Bind Code}"/>
+                                                </Border>
+                                            </ToolkitControls:DropShadowPanel>
+                                            <TextBlock Text="{x:Bind Description}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
+                    </ToolTipService.ToolTip>
+                </TextBox>
             </Grid>
-           
+            <ScrollViewer>
+
+            </ScrollViewer>
             <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
-                           Header="Advanced options" HorizontalContentAlignment="Stretch"
+                           Header="Search options" HorizontalContentAlignment="Stretch"
                            IsExpanded="False"
-                           Margin="0,12,0,0"
                            HorizontalAlignment="Stretch"
                            ExpandDirection="Down">
-                <Grid Margin="12,0,12,0" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
+                    <CheckBox Content="Use regular expressions"/>
+                    <CheckBox Content="Case sensitive"/>
+                    <CheckBox Content="Item name only"/>
+                    <CheckBox Content="Item extension only" Margin="0,0,0,12"/>
+                </StackPanel>
+            </ToolkitControls:Expander>
 
-                    <StackPanel Orientation="Vertical">
-                        <CheckBox Content="Use regular expressions"/>
-                        <CheckBox Content="Case sensitive"/>
-                        <CheckBox Content="Item name only"/>
-                        <CheckBox Content="Item extension only"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Vertical">
-                        <CheckBox Content="Match all occurences"/>
-                        <CheckBox Content="Exclude files"/>
-                        <CheckBox Content="Exclude folders"/>
-                        <CheckBox Content="Exclude subfolder items"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2" Orientation="Vertical">
-                        <CheckBox Content="Enumerate items"/>
-                        <CheckBox Content="Make uppercase"/>
-                        <CheckBox Content="Make lowercase"/>
-                        <CheckBox Content="Make titlecase"/>
-                        <!--<StackPanel Orientation="Vertical" Spacing="8" Margin="12,0,12,0">
-                    
-                 
-                    
+            <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
+                           Header="File exclusions" HorizontalContentAlignment="Stretch"
+                           IsExpanded="False"
+                           HorizontalAlignment="Stretch"
+                           ExpandDirection="Down">
+                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
+                    <CheckBox Content="Match all occurences"/>
                     <CheckBox Content="Exclude files"/>
                     <CheckBox Content="Exclude folders"/>
-                    <CheckBox Content="Exclude subfolder items"/>
-                    <CheckBox Content="Enumerate items"/>
-                    <CheckBox Content="Item name only"/>
-                    <CheckBox Content="Item extension only"/>-->
+                    <CheckBox Content="Exclude subfolder items" Margin="0,0,0,12"/>
                 </StackPanel>
-                </Grid>
             </ToolkitControls:Expander>
-        </StackPanel>
+            <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
+                           Header="Output options" HorizontalContentAlignment="Stretch"
+                           IsExpanded="False"
+                           HorizontalAlignment="Stretch"
+                           ExpandDirection="Down">
+                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
+                    <CheckBox Content="Enumerate items"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0" Spacing="8">
+                        <TextBlock Text="Filename casing" Margin="0,4,12,0"/>
+                        <ToggleButton x:Name="UppercaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="TT" Width="36" ToolTipService.ToolTip="Make uppercase" Checked="UppercaseBtn_Checked"/>
+                        <ToggleButton x:Name="LowercaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="tt" Width="36" ToolTipService.ToolTip="Make lowercase" Checked="LowercaseBtn_Checked"/>
+                        <ToggleButton x:Name="TitlecaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="Tt" Width="36" ToolTipService.ToolTip="Make titlecase" Checked="TitlecaseBtn_Checked"/>
+                    </StackPanel>
 
+                </StackPanel>
+            </ToolkitControls:Expander>
+
+        </StackPanel>
         <Border CornerRadius="2"
-                Margin="12"
-                Grid.Row="3"
+                Margin="12,34,12,12"
+                Grid.Row="1" Grid.RowSpan="2"
                 BorderBrush="{ThemeResource TextControlBorderBrush}"
                 BorderThickness="1">
             <ToolkitControls:DataGrid

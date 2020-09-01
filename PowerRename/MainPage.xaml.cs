@@ -24,7 +24,8 @@ namespace PowerRename
     public sealed partial class MainPage : Page
     {
         public ObservableCollection<FileName> FileNames { get; set; }
-        public ObservableCollection<RegExShortcut> RegExShortcuts { get; set; }
+        public ObservableCollection<RegExShortcut> SearchRegExShortcuts { get; set; }
+        public ObservableCollection<RegExShortcut> FileRegExShortcuts { get; set; }
 
         public MainPage()
         {
@@ -41,7 +42,7 @@ namespace PowerRename
                 new FileName() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg" }
             };
 
-            RegExShortcuts = new ObservableCollection<RegExShortcut>
+            SearchRegExShortcuts = new ObservableCollection<RegExShortcut>
             {
                 new RegExShortcut() { Code = "\\.", Description = "Matches any character" },
                 new RegExShortcut() { Code = "\\d", Description = "Any digit, short for [0-9]" },
@@ -51,11 +52,40 @@ namespace PowerRename
                 new RegExShortcut() { Code = "\\S+", Description = "Several non-whitespace characters" },
                 new RegExShortcut() { Code = "\\b", Description = "Matches a word boundary where a word character is [a-zA-Z0-9_]." },
             };
+
+            FileRegExShortcuts = new ObservableCollection<RegExShortcut>
+            {
+                new RegExShortcut() { Code = "$YYYY", Description = "Year" },
+               new RegExShortcut() { Code = "$MM", Description = "Month" },
+                 new RegExShortcut() { Code = "$DD", Description = "Day" },
+                   new RegExShortcut() { Code = "$hh", Description = "Hours" },
+                    new RegExShortcut() { Code = "$mm", Description = "Minutes" },
+                        new RegExShortcut() { Code = "$ss", Description = "Seconds" },
+                    new RegExShortcut() { Code = "$fff", Description = "Milliseconds" }
+            };
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             ReplaceWidthTextBox.Text = ReplaceWidthTextBox.Text + " {" + ((RegExShortcut)e.ClickedItem).Code + "}";
+        }
+
+        private void UppercaseBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            LowercaseBtn.IsChecked = false;
+            TitlecaseBtn.IsChecked = false;
+        }
+
+        private void LowercaseBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            TitlecaseBtn.IsChecked = false;
+            UppercaseBtn.IsChecked = false;
+        }
+
+        private void TitlecaseBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            LowercaseBtn.IsChecked = false;
+            UppercaseBtn.IsChecked = false;
         }
     }
 

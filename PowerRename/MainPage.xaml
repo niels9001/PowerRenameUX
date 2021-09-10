@@ -7,225 +7,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ToolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="Transparent"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+ 
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    Background="Transparent"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls">
 
     <Page.Resources>
         <converters:EmptyObjectToObjectConverter x:Key="NullToVisibilityConverter" EmptyValue="Collapsed" NotEmptyValue="Visible"/>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter"/>
 
-        <Style x:Key="HeaderToggleButtonStyle" TargetType="ToggleButton">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Red"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="2,0,0,0"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-            <Setter Property="UseSystemFocusVisuals" Value="True"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal">
-                                        <Storyboard>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="0.0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundListLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="0.0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundListMediumBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="0.0"/>
-                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="0.0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Checked">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="{Binding Value, ElementName=ArrowRotation}"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="CheckedPointerOver">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="{Binding Value, ElementName=ArrowRotation}"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="CheckedPressed">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentHighBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="{Binding Value, ElementName=ArrowRotation}"/>
-                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="CheckedDisabled">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <DoubleAnimation BeginTime="0:0:0" Duration="0:0:0.1" Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" To="{Binding Value, ElementName=ArrowRotation}"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Indeterminate">
-                                        <Storyboard>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="IndeterminatePointerOver">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="IndeterminatePressed">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="IndeterminateDisabled">
-                                        <Storyboard>
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverPanel" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Arrow" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseLowBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="ExpandDirectionStates">
-                                    <VisualState x:Name="RightDirection"/>
-                                    <VisualState x:Name="DownDirection"/>
-                                    <VisualState x:Name="LeftDirection">
-                                        <VisualState.Setters>
-                                            <Setter Target="ArrowRotation.Value" Value="-90"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="UpDirection">
-                                        <VisualState.Setters>
-                                            <Setter Target="ArrowRotation.Value" Value="-90"/>
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Rectangle x:Name="HoverPanel" Grid.ColumnSpan="2" Fill="Transparent"/>
-                            <Slider x:Name="ArrowRotation" Minimum="-180" Maximum="180" Value="90" Visibility="Collapsed"/>
-                            <FontIcon x:Name="Arrow" Foreground="{ThemeResource SystemColorControlAccentColor}" FontFamily="Segoe MDL2 Assets" FontSize="12" Glyph="&#xE76C;" Margin="16,12,12,12" RenderTransformOrigin="0.5,0.5">
-                                <FontIcon.RenderTransform>
-                                    <RotateTransform/>
-                                </FontIcon.RenderTransform>
-                            </FontIcon>
-                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" FontWeight="SemiBold" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" Grid.Column="1" Foreground="{ThemeResource SystemColorControlAccentColor}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0,0,12,0" Padding="{TemplateBinding Padding}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="{TemplateBinding VerticalAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="AdvancedOptionExpanderStyle" TargetType="ToolkitControls:Expander">
-            <Setter Property="HeaderStyle" Value="{StaticResource HeaderToggleButtonStyle}"/>
-            <Setter Property="Background" Value="Transparent"/>
-        </Style>
     </Page.Resources>
-    <Grid Background="{StaticResource BackgroundAcrylicBrush}">
+    <Grid Background="Transparent">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="86"/>
+            <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="64"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" x:Name="PreviewColumn"/>
-            <ColumnDefinition Width="360" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0"
-              Background="{ThemeResource SolidBackgroundColor}"
-              Grid.RowSpan="3"/>
-        
-        <TextBlock Text="Preview"
-                   FontWeight="Bold"
-                   FontSize="16"
-                   Grid.Column="0"
-                   Style="{ThemeResource TitleTextBlockStyle}"
-                   VerticalAlignment="Center"
-                   Margin="12,36,0,0"/>
+        <Grid Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch" 
+                                Margin="16"
+                                Padding="16"
+                                CornerRadius="8"
+                                BorderThickness="1"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+        </Grid>
 
-        <TextBlock Text="Search criteria"
-                   FontWeight="Bold"
-                   FontSize="16"
-                   Grid.Column="1"
-                   Style="{ThemeResource TitleTextBlockStyle}"
-                   VerticalAlignment="Center"
-                   Margin="12,36,0,0" />
-        <Grid Background="{StaticResource SolidBackgroundColor}"
-              Grid.Row="3"
-              Grid.RowSpan="3"/>
 
         <!--<TextBlock Text="Preview results"
                    FontWeight="Bold"
@@ -241,16 +55,76 @@
                    VerticalAlignment="Center"
                    Margin="12,48,0,0" />-->
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="0" Margin="0,12,0,12">
-            <TextBox Header="Search for" Margin="12,0,12,0">
-                <ToolTipService.ToolTip>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="RegEx cheatsheet" FontWeight="SemiBold" />
-                        <ListView ItemsSource="{x:Bind SearchRegExShortcuts}"
+        <Grid Grid.Column="1"  Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch" 
+                                Margin="16"
+                              
+                                CornerRadius="8"
+                                BorderThickness="1"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+
+            <StackPanel Orientation="Vertical" Padding="24,16,24,16">
+                <TextBox>
+                    <TextBox.Header>
+                        <TextBlock Text="Search for" FontWeight="SemiBold"/>
+                    </TextBox.Header>
+                </TextBox>
+                    <CheckBox Content="Use RegEx" Margin="0,4,0,0" />
+                    <CheckBox Content="Match all occurences" />
+                    <CheckBox Content="Case sensitive" />
+
+                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="-24,16,-24,16" />
+                <TextBox Margin="0,0,0,32">
+                    <TextBox.Header>
+                        <TextBlock Text="Replace with" FontWeight="SemiBold"/>
+                    </TextBox.Header>
+                </TextBox>
+
+                    <TextBlock FontWeight="SemiBold" Text="Inclusions"/>
+
+                                <CheckBox Content="Use RegEx" />
+                                <CheckBox Content="Match all occurences" />
+                    <CheckBox Content="Case sensitive" />
+
+                    <TextBlock FontWeight="SemiBold" Text="Replace" Margin="0,16,0,0"/>
+                    <ComboBox SelectedIndex="0">
+                        <x:String>Entire file name</x:String>
+                        <x:String>File name only</x:String>
+                        <x:String>File extension only</x:String>
+                    </ComboBox>
+                    <TextBlock FontWeight="SemiBold" Text="Format" Margin="0,16,0,0"/>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <ToggleButton Content="Tt"/>
+                        <ToggleButton Content="TT"/>
+                        <ToggleButton Content="Tt"/>
+                        <ToggleButton Content="Tt"/>
+                    </StackPanel>
+                    <CheckBox Content="Enumerate items" />
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="5" Spacing="12" Margin="12" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <Button x:Name="SettingsBtn" Grid.Row="5" Background="Transparent" Grid.Column="1">
+                            <Button.Content>
+                                <FontIcon Glyph="&#xE713;" />
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource AccentButtonStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE8AC;" FontSize="14" FontFamily="Segoe MDL2 Assets" />
+                                    <TextBlock Text="Rename"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+
+                </StackPanel>
+        </Grid>
+
+
+
+
+        <!--<ListView ItemsSource="{x:Bind SearchRegExShortcuts}"
                                           Grid.Row="1"
                                           IsItemClickEnabled="True"
                                           ItemClick="ListView_ItemClick"
@@ -267,153 +141,11 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                </ToolTipService.ToolTip>
-            </TextBox>
-            <Grid Margin="12,12,12,0">
+                        </ListView>-->
 
-                <TextBox x:Name="ReplaceWidthTextBox" Header="Replace with">
-                    <ToolTipService.ToolTip>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="28"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="File creation cheatsheet" FontWeight="SemiBold" />
-                            <ListView ItemsSource="{x:Bind FileRegExShortcuts}"
-                                          Grid.Row="1"
-                                          IsItemClickEnabled="True"
-                                          ItemClick="ListView_ItemClick"
-                                          Margin="-4,12,0,0">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="local:RegExShortcut">
-                                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="-8,0,0,0">
-                                            <ToolkitControls:DropShadowPanel ShadowOpacity="0.2" OffsetX="0" OffsetY="1" BlurRadius="2">
-                                                <Border CornerRadius="2" Padding="8" Background="{ThemeResource SnippetBackgroundBrush}">
-                                                    <TextBlock FontFamily="Consolas" Text="{x:Bind Code}"/>
-                                                </Border>
-                                            </ToolkitControls:DropShadowPanel>
-                                            <TextBlock Text="{x:Bind Description}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Grid>
-                    </ToolTipService.ToolTip>
-                </TextBox>
-            </Grid>
-            <ScrollViewer>
-
-            </ScrollViewer>
-            <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
-                           Header="Search options" HorizontalContentAlignment="Stretch"
-                           IsExpanded="False"
-                           HorizontalAlignment="Stretch"
-                           ExpandDirection="Down">
-                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
-                    <CheckBox Content="Use regular expressions"/>
-                    <CheckBox Content="Case sensitive"/>
-                    <CheckBox Content="Item name only"/>
-                    <CheckBox Content="Item extension only" Margin="0,0,0,12"/>
-                </StackPanel>
-            </ToolkitControls:Expander>
-
-            <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
-                           Header="File exclusions" HorizontalContentAlignment="Stretch"
-                           IsExpanded="False"
-                           HorizontalAlignment="Stretch"
-                           ExpandDirection="Down">
-                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
-                    <CheckBox Content="Match all occurences"/>
-                    <CheckBox Content="Exclude files"/>
-                    <CheckBox Content="Exclude folders"/>
-                    <CheckBox Content="Exclude subfolder items" Margin="0,0,0,12"/>
-                </StackPanel>
-            </ToolkitControls:Expander>
-            <ToolkitControls:Expander Style="{StaticResource AdvancedOptionExpanderStyle}" Background="Transparent"
-                           Header="Output options" HorizontalContentAlignment="Stretch"
-                           IsExpanded="False"
-                           HorizontalAlignment="Stretch"
-                           ExpandDirection="Down">
-                <StackPanel Margin="12,0,12,0" Orientation="Vertical">
-                    <CheckBox Content="Enumerate items"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0" Spacing="8">
-                        <TextBlock Text="Filename casing" Margin="0,4,12,0"/>
-                        <ToggleButton x:Name="UppercaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="TT" Width="36" ToolTipService.ToolTip="Make uppercase" Checked="UppercaseBtn_Checked"/>
-                        <ToggleButton x:Name="LowercaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="tt" Width="36" ToolTipService.ToolTip="Make lowercase" Checked="LowercaseBtn_Checked"/>
-                        <ToggleButton x:Name="TitlecaseBtn" Background="Transparent" FontWeight="SemiLight" FontFamily="Consolas" Content="Tt" Width="36" ToolTipService.ToolTip="Make titlecase" Checked="TitlecaseBtn_Checked"/>
-                    </StackPanel>
-
-                </StackPanel>
-            </ToolkitControls:Expander>
-
-        </StackPanel>
-        <Border CornerRadius="2"
-                Margin="12,34,12,12"
-                Grid.Row="1" Grid.RowSpan="2"
-                BorderBrush="{ThemeResource TextControlBorderBrush}"
-                BorderThickness="1">
-            <ToolkitControls:DataGrid
-                x:Name="dataGrid"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch"
-                HorizontalScrollBarVisibility="Visible"
-                VerticalScrollBarVisibility="Visible"
-                AlternatingRowBackground="Transparent"
-                AlternatingRowForeground="Gray"
-                AreRowDetailsFrozen="False"
-                AreRowGroupHeadersFrozen="True"
-                AutoGenerateColumns="False"
-                CanUserSortColumns="False"
-                CanUserReorderColumns="True"
-                CanUserResizeColumns="True"
-                ColumnHeaderHeight="32"
-                MaxColumnWidth="400"
-                FrozenColumnCount="0"
-                GridLinesVisibility="None"
-                HeadersVisibility="Column"
-                IsReadOnly="True"
-                ItemsSource="{x:Bind FileNames}"
-                RowDetailsVisibilityMode="Collapsed"
-                SelectionMode="Single"
-                
-                RowGroupHeaderPropertyNameAlternative="Range">
-                <ToolkitControls:DataGrid.Columns>
-                    <ToolkitControls:DataGridCheckBoxColumn IsReadOnly="True" />
-                    <ToolkitControls:DataGridTextColumn Header="Original" IsReadOnly="True" Binding="{Binding Original}" Tag="Original" />
-                    <ToolkitControls:DataGridTextColumn Header="Renamed" IsReadOnly="True" Binding="{Binding Renamed}" Tag="Renamed" />
-                </ToolkitControls:DataGrid.Columns>
-            </ToolkitControls:DataGrid>
-        </Border>
-          
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="5" Spacing="12" Margin="12" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button x:Name="SettingsBtn" Grid.Row="5" Background="Transparent" Grid.Column="1">
-                <Button.Content>
-                    <FontIcon Glyph="&#xE713;" />
-                </Button.Content>
-            </Button>
-            <Button Style="{StaticResource AccentButtonStyle}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon Glyph="&#xE8AC;" FontSize="14" FontFamily="Segoe MDL2 Assets" />
-                        <TextBlock Text="Rename"/>
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-        </StackPanel>
-       
-
-        <!--<TextBlock Grid.Row="2" Margin="12" VerticalAlignment="Bottom">
-            <Run Text="Items selected:"/>
-            <Run Text="7" FontWeight="Bold"/>
-            <Run Text=" |   Renaming: "/>
-            <Run Text="0" FontWeight="Bold"/>
-        </TextBlock>-->
         <StackPanel x:Name="TitleBar" Orientation="Horizontal">
             <Image Source="Assets/PowerRename.png" Width="16" Height="16" VerticalAlignment="Top" Margin="11,9,0,0"/>
-            <TextBlock Text="PowerRename for Windows" FontSize="12" Margin="8,8,0,0" VerticalAlignment="Top" />
+            <TextBlock Text="PowerRename" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,8,0,0" VerticalAlignment="Top" />
         </StackPanel>
     </Grid>
 </Page>

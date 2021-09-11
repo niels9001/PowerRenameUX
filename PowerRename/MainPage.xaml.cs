@@ -31,14 +31,28 @@ namespace PowerRename
         {
             this.InitializeComponent();
 
+            List<ExplorerItem> SubItems = new List<ExplorerItem>();
+            SubItems.Add(new ExplorerItem()
+            {
+                Original = "Surface 15_wallpaper.jpg",
+                Renamed = "15_wallpaper.jpg",
+                Type = ExplorerItemType.File
+            });
+            SubItems.Add(new ExplorerItem()
+            {
+                Original = "Surface 16_wallpaper.jpg",
+                Renamed = "16_wallpaper.jpg",
+                Type = ExplorerItemType.File
+            });
+
             ExplorerItems = new ObservableCollection<ExplorerItem>
             {
-                new ExplorerItem() { Original = "Surface 1_wallpaper.jpg", Renamed = "1_wallpaper.jpg", Type = ExplorerItemType.Folder },
+                new ExplorerItem() { Original = "Surface 1_wallpaper.jpg", Renamed = "1_wallpaper.jpg", Type = ExplorerItemType.Folder, Children = SubItems },
                 new ExplorerItem() { Original = "Surface 2_wallpaper.jpg", Renamed = "2_wallpaper.jpg", Type = ExplorerItemType.File },
                 new ExplorerItem() { Original = "Surface 3_wallpaper.jpg", Renamed = "3_wallpaper.jpg", Type = ExplorerItemType.File },
-                new ExplorerItem() { Original = "Surface 4_wallpaper.jpg", Renamed = "4_wallpaper.jpg", Type = ExplorerItemType.File },
+                new ExplorerItem() { Original = "Surface 4_wallpaper.jpg", Renamed = "4_wallpaper.jpg", Type = ExplorerItemType.Folder, Children = SubItems },
                 new ExplorerItem() { Original = "Surface 5_wallpaper.jpg", Renamed = "5_wallpaper.jpg", Type = ExplorerItemType.File },
-                new ExplorerItem() { Original = "Surface 6_wallpaper.jpg", Renamed = "6_wallpaper.jpg", Type = ExplorerItemType.Folder },
+                new ExplorerItem() { Original = "Surface 6_wallpaper.jpg", Renamed = "6_wallpaper.jpg", Type = ExplorerItemType.Folder, Children = SubItems },
                 new ExplorerItem() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg", Type = ExplorerItemType.File },
             };
 

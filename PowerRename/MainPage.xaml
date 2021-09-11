@@ -22,12 +22,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="310" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Image Width="20" Source="ms-appx:///Assets/folder.png" Grid.Column="0"/>
-                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" FontSize="12" Grid.Column="1"/>
+                    <Image Width="16" Source="ms-appx:///Assets/folder.png" Grid.Column="0"/>
+                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"  FontSize="12" Grid.Column="1"/>
                     <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontSize="12" Grid.Column="2"/>
                 </Grid>
             </controls:TreeViewItem>
@@ -38,12 +38,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="310" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Image Width="20" Source="ms-appx:///Assets/file.png" Grid.Column="0"/>
-                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" FontSize="12" Grid.Column="1"/>
+                    <Image Width="16" Source="ms-appx:///Assets/file.png" Grid.Column="0"/>
+                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" Grid.Column="1"/>
                     <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontSize="12" Grid.Column="2"/>
                 </Grid>
             </controls:TreeViewItem>
@@ -69,14 +69,36 @@
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
                                 Margin="16"
-                                Padding="16"
+                           
                                 CornerRadius="8"
                                 BorderThickness="1"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <muxc:TreeView x:Name="FileTree" Margin="0,12,0,0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+          
+                <CheckBox Content="" Margin="16,0,0,0" />
+                <TextBlock Text="Original" FontWeight="SemiBold" Margin="104,-2,0,0" VerticalAlignment="Center" />
+                <TextBlock Text="Renamed" FontWeight="SemiBold" Margin="412,-2,0,0" VerticalAlignment="Center"  />
+            <Button Content="&#xE16E;" Background="Transparent" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,8,0">
+                <Button.Flyout>
+                    <MenuBarItemFlyout Placement="Bottom">
+                        <muxc:RadioMenuFlyoutItem Text="Show all files" IsChecked="True" GroupName="Filter"/>
+                        <muxc:RadioMenuFlyoutItem Text="Only show files that will be renamed" GroupName="Filter"/>
+                    </MenuBarItemFlyout>
+                </Button.Flyout>
+            </Button>
+
+            <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+            <ScrollViewer Grid.Row="1">
+                <muxc:TreeView x:Name="FileTree" Margin="2,12,12,12"
+                        
                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                            ItemsSource="{x:Bind ExplorerItems}" 
                             ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" SelectionMode="Multiple"/>
+            </ScrollViewer>
+         
         </Grid>
 
 
@@ -98,29 +120,29 @@
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
                                 Margin="16"
-                              Background="{ThemeResource LayerFillColorDefaultBrush}"
+                          
                                 CornerRadius="8"
-                                BorderThickness="1"
+                            
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="64" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Padding="24,16,24,16">
-                <TextBox PlaceholderText="Search for">
+            <StackPanel Orientation="Vertical" Padding="0,0,12,16">
+                <TextBox PlaceholderText="Search for" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Search for" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
 
-                <CheckBox Content="Use RegEx" Margin="2,4,0,0" />
+                <CheckBox Content="Use RegEx" Margin="2,12,0,0" />
                 <CheckBox Content="Match all occurences"  Margin="2,4,0,0" />
                 <CheckBox Content="Case sensitive"  Margin="2,4,0,0" />
                 
 
 
-                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="-24,16,-24,16" />
-                <TextBox Margin="0,0,0,32" PlaceholderText="Replace with">
+                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="-24,24,-24,16" />
+                <TextBox Margin="0,0,0,32" PlaceholderText="Replace with" Height="48" Padding="12,12,0,32" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Replace with" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
@@ -183,6 +205,8 @@
         <StackPanel x:Name="TitleBar" Orientation="Horizontal">
             <Image Source="Assets/PowerRename.png" Width="16" Height="16" VerticalAlignment="Top" Margin="11,9,0,0"/>
             <TextBlock Text="PowerRename" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,8,0,0" VerticalAlignment="Top" />
+            <Button Content="&#xE10E;" Margin="0,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderThickness="0"  Background="Transparent" Foreground="{ThemeResource SystemColorControlAccentBrush}" />
+            <Button Content="&#xE10D;" IsEnabled="False" Margin="-8,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" />
         </StackPanel>
     </Grid>
 </Page>

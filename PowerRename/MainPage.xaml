@@ -68,7 +68,7 @@
         <Grid Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
-                                Margin="16"
+                                Margin="20,0,20,20"
                            
                                 CornerRadius="8"
                                 BorderThickness="1"
@@ -119,16 +119,14 @@
         <Grid Grid.Column="1"  Grid.Row="1" 
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
-                                Margin="16"
-                          
-                                CornerRadius="8"
-                            
+                                Margin="0,0,20,20"
+                                                       
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="64" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Padding="0,0,12,16">
+            <StackPanel Orientation="Vertical" Padding="0,0,0,16">
                 <TextBox PlaceholderText="Search for" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Search for" FontWeight="SemiBold"/>
@@ -147,26 +145,26 @@
                         <TextBlock Text="Replace with" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
-                <Grid>
+                <Grid ColumnSpacing="24">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="24"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
         
-                <TextBlock Text="File types" FontSize="12"  Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Text="File types" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 
-                <StackPanel Orientation="Horizontal" Spacing="4" Grid.Row="1" >
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="4" Grid.Row="1" >
                     <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include files"/>
                     <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include folders"/>
                     <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include subfolders"/>
                 </StackPanel>
                     
-            <TextBlock Text="Replace" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                    <ComboBox SelectedIndex="0" Grid.Column="1"  Grid.Row="1" HorizontalAlignment="Stretch">
+            <TextBlock Text="Replace" FontSize="12" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch" Grid.Column="0"  Grid.Row="1">
                         <x:String>Entire file name</x:String>
                         <x:String>File name only</x:String>
                         <x:String>File extension only</x:String>
@@ -180,8 +178,8 @@
                     <ToggleButton Content="aa" FontWeight="Medium" Height="32" ToolTipService.ToolTip="lowercase"/>
                     <ToggleButton Content="AA" FontWeight="Medium" Height="32" ToolTipService.ToolTip="UPPERCASE"/>
                     <ToggleButton Content="Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Title case"/>
-                    <ToggleButton Content="Aa Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Capitalized Each Word"/>
-                    <AppBarSeparator />
+                    <ToggleButton Content="Aa Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Capitalize Each Word"/>
+                    <AppBarSeparator Margin="5,0,5,0" />
                     <ToggleButton Content="&#xEA40;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" ToolTipService.ToolTip="Enumerate items"/>
                 </StackPanel>
              
@@ -189,7 +187,17 @@
                 
 
                 </StackPanel>
-            <Button Content="Load presets" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12">
+
+
+
+            <Rectangle Height="1"
+                       Fill="{ThemeResource CardStrokeColorDefaultBrush}"
+                       HorizontalAlignment="Stretch"
+                       Margin="-24,0,-24,0"
+                       VerticalAlignment="Top"
+                       Grid.Row="1" />
+
+            <Button Content="Load presets" Grid.Row="1"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12">
                 <Button.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Photo rule 1" />
@@ -228,10 +236,10 @@
                         </ListView>-->
 
         <StackPanel x:Name="TitleBar" Orientation="Horizontal">
-            <Image Source="Assets/PowerRename.png" Width="16" Height="16" VerticalAlignment="Top" Margin="11,9,0,0"/>
-            <TextBlock Text="PowerRename" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,8,0,0" VerticalAlignment="Top" />
-            <Button Content="&#xE10E;" Margin="0,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderThickness="0"  Background="Transparent" Foreground="{ThemeResource SystemColorControlAccentBrush}" />
-            <Button Content="&#xE10D;" IsEnabled="False" Margin="-8,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" />
+            <Image Source="Assets/PowerRename.png" Width="16" Height="16" VerticalAlignment="Top" Margin="20,9,0,0"/>
+            <TextBlock Text="PowerRename" Style="{StaticResource CaptionTextBlockStyle}" Margin="18,8,8,0" VerticalAlignment="Top" />
+            <!--<Button Content="&#xE10E;" Margin="0,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderThickness="0"  Background="Transparent" Foreground="{ThemeResource SystemColorControlAccentBrush}" />
+            <Button Content="&#xE10D;" IsEnabled="False" Margin="-8,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" />-->
         </StackPanel>
     </Grid>
 </Page>

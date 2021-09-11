@@ -23,7 +23,7 @@ namespace PowerRename
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<FileName> FileNames { get; set; }
+        public ObservableCollection<ExplorerItem> ExplorerItems { get; set; }
         public ObservableCollection<RegExShortcut> SearchRegExShortcuts { get; set; }
         public ObservableCollection<RegExShortcut> FileRegExShortcuts { get; set; }
 
@@ -31,15 +31,15 @@ namespace PowerRename
         {
             this.InitializeComponent();
 
-            FileNames = new ObservableCollection<FileName>
+            ExplorerItems = new ObservableCollection<ExplorerItem>
             {
-                new FileName() { Original = "Surface 1_wallpaper.jpg", Renamed = "1_wallpaper.jpg" },
-                new FileName() { Original = "Surface 2_wallpaper.jpg", Renamed = "2_wallpaper.jpg" },
-                new FileName() { Original = "Surface 3_wallpaper.jpg", Renamed = "3_wallpaper.jpg" },
-                new FileName() { Original = "Surface 4_wallpaper.jpg", Renamed = "4_wallpaper.jpg" },
-                new FileName() { Original = "Surface 5_wallpaper.jpg", Renamed = "5_wallpaper.jpg" },
-                new FileName() { Original = "Surface 6_wallpaper.jpg", Renamed = "6_wallpaper.jpg" },
-                new FileName() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg" }
+                new ExplorerItem() { Original = "Surface 1_wallpaper.jpg", Renamed = "1_wallpaper.jpg", Type = ExplorerItemType.Folder },
+                new ExplorerItem() { Original = "Surface 2_wallpaper.jpg", Renamed = "2_wallpaper.jpg", Type = ExplorerItemType.File },
+                new ExplorerItem() { Original = "Surface 3_wallpaper.jpg", Renamed = "3_wallpaper.jpg", Type = ExplorerItemType.File },
+                new ExplorerItem() { Original = "Surface 4_wallpaper.jpg", Renamed = "4_wallpaper.jpg", Type = ExplorerItemType.File },
+                new ExplorerItem() { Original = "Surface 5_wallpaper.jpg", Renamed = "5_wallpaper.jpg", Type = ExplorerItemType.File },
+                new ExplorerItem() { Original = "Surface 6_wallpaper.jpg", Renamed = "6_wallpaper.jpg", Type = ExplorerItemType.Folder },
+                new ExplorerItem() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg", Type = ExplorerItemType.File },
             };
 
             SearchRegExShortcuts = new ObservableCollection<RegExShortcut>
@@ -65,28 +65,7 @@ namespace PowerRename
             };
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            ReplaceWidthTextBox.Text = ReplaceWidthTextBox.Text + " {" + ((RegExShortcut)e.ClickedItem).Code + "}";
-        }
-
-        private void UppercaseBtn_Checked(object sender, RoutedEventArgs e)
-        {
-            LowercaseBtn.IsChecked = false;
-            TitlecaseBtn.IsChecked = false;
-        }
-
-        private void LowercaseBtn_Checked(object sender, RoutedEventArgs e)
-        {
-            TitlecaseBtn.IsChecked = false;
-            UppercaseBtn.IsChecked = false;
-        }
-
-        private void TitlecaseBtn_Checked(object sender, RoutedEventArgs e)
-        {
-            LowercaseBtn.IsChecked = false;
-            UppercaseBtn.IsChecked = false;
-        }
+        
     }
 
     public class FileName

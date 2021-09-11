@@ -17,7 +17,42 @@
     <Page.Resources>
         <converters:EmptyObjectToObjectConverter x:Key="NullToVisibilityConverter" EmptyValue="Collapsed" NotEmptyValue="Visible"/>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter"/>
+        <DataTemplate x:Key="FolderTemplate" x:DataType="local:ExplorerItem">
+            <controls:TreeViewItem
+            ItemsSource="{x:Bind Children}" IsExpanded="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
+                    <Image Width="20" Source="../Assets/folder.png" Grid.Column="0"/>
+                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" Grid.Column="1"/>
+                    <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" Grid.Column="2"/>
+                </Grid>
+            </controls:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FileTemplate" x:DataType="local:ExplorerItem">
+            <controls:TreeViewItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Width="20" Source="../Assets/file.png" Grid.Column="0"/>
+                    <TextBlock Text="{x:Bind Original, Mode=OneWay}" Grid.Column="1"/>
+                    <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" Grid.Column="2"/>
+                </Grid>
+            </controls:TreeViewItem>
+        </DataTemplate>
+
+        <local:ExplorerItemTemplateSelector x:Key="ExplorerItemTemplateSelector"
+        FolderTemplate="{StaticResource FolderTemplate}"
+        FileTemplate="{StaticResource FileTemplate}" />
     </Page.Resources>
     <Grid Background="Transparent">
 
@@ -38,6 +73,10 @@
                                 CornerRadius="8"
                                 BorderThickness="1"
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <muxc:TreeView x:Name="FileTree" Margin="0,12,0,0"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                           ItemsSource="{x:Bind ExplorerItems}" 
+                            ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" SelectionMode="Multiple"/>
         </Grid>
 
 

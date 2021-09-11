@@ -58,14 +58,12 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" x:Name="PreviewColumn"/>
-            <ColumnDefinition Width="400" />
-        </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
+
+        <Grid Grid.Row="2" Background="{ThemeResource LayerFillColorDefaultBrush}"
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
                                 Margin="20,0,20,20"
@@ -119,85 +117,74 @@
         <Grid Grid.Column="1"  Grid.Row="1" 
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
-                                Margin="0,0,20,20"
+                                Margin="0,0,0,20"
                                                        
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="64" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical" Padding="0,0,0,16">
+
+            <StackPanel Orientation="Vertical" Padding="20">
                 <TextBox PlaceholderText="Search for" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Search for" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
+                <StackPanel Margin="2,8,0,0" Orientation="Horizontal" Spacing="24">
+                    <CheckBox Content="Use RegEx" MinWidth="0"/>
+                    <CheckBox Content="Match all occurences" />
+                    <CheckBox Content="Case sensitive" />
+                </StackPanel>
 
-                <CheckBox Content="Use RegEx" Margin="2,12,0,0" />
-                <CheckBox Content="Match all occurences"  Margin="2,4,0,0" />
-                <CheckBox Content="Case sensitive"  Margin="2,4,0,0" />
-                
 
-
-                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="-24,24,-24,16" />
-                <TextBox Margin="0,0,0,32" PlaceholderText="Replace with" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
+    
+                <TextBox Margin="0,40,0,16" PlaceholderText="Replace with" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Replace with" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
-                <Grid ColumnSpacing="24">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-        
-                <TextBlock Text="File types" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                <StackPanel Orientation="Horizontal" Spacing="24" Margin="2,0,0,0">
 
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="4" Grid.Row="1" >
-                    <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include files"/>
-                    <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include folders"/>
-                    <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include subfolders"/>
-                </StackPanel>
-                    
-            <TextBlock Text="Replace" FontSize="12" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                    <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch" Grid.Column="0"  Grid.Row="1">
-                        <x:String>Entire file name</x:String>
-                        <x:String>File name only</x:String>
-                        <x:String>File extension only</x:String>
-                    </ComboBox>
-           
-        </Grid>
-                <TextBlock Text="Format" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,24,0,8"/>
+                    <StackPanel Orientation="Vertical" >
+                        <TextBlock Text="File types" Margin="0,0,0,8" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="4" Grid.Row="1" >
+                            <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include files"/>
+                            <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include folders"/>
+                            <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include subfolders"/>
+                        </StackPanel>
+                    </StackPanel>
 
 
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <ToggleButton Content="aa" FontWeight="Medium" Height="32" ToolTipService.ToolTip="lowercase"/>
-                    <ToggleButton Content="AA" FontWeight="Medium" Height="32" ToolTipService.ToolTip="UPPERCASE"/>
-                    <ToggleButton Content="Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Title case"/>
-                    <ToggleButton Content="Aa Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Capitalize Each Word"/>
-                    <AppBarSeparator Margin="5,0,5,0" />
-                    <ToggleButton Content="&#xEA40;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" ToolTipService.ToolTip="Enumerate items"/>
-                </StackPanel>
-             
 
-                
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Replace" FontSize="12" Grid.Column="0" Margin="0,0,0,8" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch" Grid.Column="0"  Grid.Row="1">
+                            <x:String>Entire file name</x:String>
+                            <x:String>File name only</x:String>
+                            <x:String>File extension only</x:String>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Format" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,8" />
+
+
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <ToggleButton Content="aa" FontWeight="Medium" Height="32" ToolTipService.ToolTip="lowercase"/>
+                            <ToggleButton Content="AA" FontWeight="Medium" Height="32" ToolTipService.ToolTip="UPPERCASE"/>
+                            <ToggleButton Content="Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Title case"/>
+                            <ToggleButton Content="Aa Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Capitalize Each Word"/>
+                            <AppBarSeparator Margin="5,0,5,0" />
+                            <ToggleButton Content="&#xEA40;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" ToolTipService.ToolTip="Enumerate items"/>
+                        </StackPanel>
+                    </StackPanel>
 
                 </StackPanel>
 
+            </StackPanel>
 
 
-            <Rectangle Height="1"
-                       Fill="{ThemeResource CardStrokeColorDefaultBrush}"
-                       HorizontalAlignment="Stretch"
-                       Margin="-24,0,-24,0"
-                       VerticalAlignment="Top"
-                       Grid.Row="1" />
 
-            <Button Content="Load presets" Grid.Row="1"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12">
+
+            <!--<Button Content="Load presets" Grid.Row="1"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12">
                 <Button.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Photo rule 1" />
@@ -205,8 +192,8 @@
                         <MenuFlyoutItem Text="And another rule" />
                     </MenuFlyout>
                 </Button.Flyout>
-            </Button>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Spacing="12" Margin="12" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            </Button>-->
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Spacing="12" Margin="0,0,20,20" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
               
                 <Button x:Name="SettingsBtn" Content=" &#xE713;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Grid.Row="5" Background="Transparent" BorderBrush="Transparent" Grid.Column="1"/>
                 <Button Style="{StaticResource AccentButtonStyle}" Content="Apply" />

@@ -61,7 +61,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" x:Name="PreviewColumn"/>
+            <ColumnDefinition Width="390" x:Name="PreviewColumn"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -124,55 +124,120 @@
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="64" />
+                <RowDefinition Height="48" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Padding="0,0,0,16">
-               
+
+                <Grid>
+                    
+             
                 <TextBox PlaceholderText="Search for" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Search for" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
 
-                <CheckBox Content="Use RegEx" Margin="2,12,0,0" />
+                    <Button FontFamily="Segoe Fluent Icons"
+                          VerticalAlignment="Center"
+                            Visibility="{Binding ElementName=RegExButton, Path=IsChecked}"
+                            Height="32"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Content="&#xE943;"
+                            Foreground="{ThemeResource SystemColorControlAccentBrush}"
+                            HorizontalAlignment="Right">
+                        <Button.Flyout>
+                            <Flyout>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="28" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="48" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="RegEx cheatsheet"
+                                               FontWeight="SemiBold" />
+                                    <ListView ItemsSource="{x:Bind RegExShortcuts}"
+                                              Grid.Row="1"
+                                              IsItemClickEnabled="True"
+                                              Margin="-4,12,0,0">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="local:RegExShortcut">
+                                                <Grid ColumnSpacing="8"
+                                                      Margin="-10,0,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="48" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border CornerRadius="4"
+                                                            Padding="8"
+                                                            HorizontalAlignment="Left"
+                                                            BorderThickness="1"
+                                                            BorderBrush="{ThemeResource ButtonBorderBrush}"
+                                                            Background="{ThemeResource ButtonBackground}">
+                                                        <TextBlock FontFamily="Consolas"
+                                                                   Foreground="{ThemeResource ButtonForeground}"
+                                                                   Text="{x:Bind Code}" />
+                                                    </Border>
+
+                                                    <TextBlock Text="{x:Bind Description}"
+                                                               FontSize="12"
+                                                               Grid.Column="1"
+                                                               Margin="0,0,0,0"
+                                                               Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                                               VerticalAlignment="Center" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <HyperlinkButton Grid.Row="2"
+                                                     VerticalAlignment="Bottom">
+                                        <TextBlock Text="Learn more about RegEx" />
+                                    </HyperlinkButton>
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </Grid>
+
+               
+                <CheckBox Content="Use RegEx" x:Name="RegExButton" Margin="2,12,0,0" />
                 <CheckBox Content="Match all occurences"  Margin="2,4,0,0" />
                 <CheckBox Content="Case sensitive"  Margin="2,4,0,0" />
                 
 
 
                 <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="0,24,0,16" />
-                <TextBox Margin="0,0,0,32" PlaceholderText="Replace with" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
+                <TextBox Margin="0,0,0,0" PlaceholderText="Replace with" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Replace with" FontWeight="SemiBold"/>
                     </TextBox.Header>-->
                 </TextBox>
-                <Grid ColumnSpacing="24">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="24"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-        
-                <TextBlock Text="File types" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+
+                <TextBlock Text="Apply to"
+                           FontSize="12"
+                           Margin="0,16,0,8" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="4" Grid.Row="1" >
+                    <ComboBox SelectedIndex="0"
+                              Width="200"
+                              HorizontalAlignment="Stretch"
+                              Grid.Column="0"
+                              Grid.Row="1">
+                        <x:String>Filename + extension</x:String>
+                        <x:String>Filename only</x:String>
+                        <x:String>Extension only</x:String>
+                    </ComboBox>
+                                <AppBarSeparator Margin="5,0,5,0" />
                     <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include files"/>
                     <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include folders"/>
                     <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include subfolders"/>
+                  
+                  
                 </StackPanel>
-                    
-            <TextBlock Text="Replace" FontSize="12" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-                    <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch" Grid.Column="0"  Grid.Row="1">
-                        <x:String>Entire file name</x:String>
-                        <x:String>File name only</x:String>
-                        <x:String>File extension only</x:String>
-                    </ComboBox>
-           
-        </Grid>
-                <TextBlock Text="Format" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,24,0,8"/>
+
+
+                <TextBlock Text="Text formatting" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,24,0,8"/>
 
 
                 <StackPanel Orientation="Horizontal" Spacing="4">
@@ -200,8 +265,23 @@
 
           
             <StackPanel Orientation="Horizontal" Grid.Row="1" Spacing="8" Margin="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <Button Content="Bookmarks"
+                <Button x:Name="SettingsBtn"
+                        Height="32"
+                        Content="&#xE713;"
+                        ToolTipService.ToolTip="Settings"
+                        FontFamily="Segoe Fluent Icons"
+                        Grid.Row="5"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Grid.Column="1" />
+
+                <Button Content="&#xE728;"
+                        FontFamily="Segoe Fluent Icons"
+                        ToolTipService.ToolTip="Presets"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
                         Grid.Row="1"
+                        Height="32"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Left">
                     <Button.Flyout>
@@ -212,8 +292,7 @@
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
-                <Button x:Name="SettingsBtn" Height="32" Content=" &#xE713;" FontFamily="Segoe Fluent Icons" Grid.Row="5" Background="Transparent" BorderBrush="Transparent" Grid.Column="1"/>
-             
+                
             </StackPanel>
             <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource AccentButtonStyle}">
                 <Button.Content>

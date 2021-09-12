@@ -24,6 +24,7 @@ namespace PowerRename
     public sealed partial class MainPage : Page
     {
         public ObservableCollection<ExplorerItem> ExplorerItems { get; set; }
+        public ObservableCollection<RegExShortcut> RegExShortcuts { get; set; }
 
         public MainPage()
         {
@@ -53,6 +54,24 @@ namespace PowerRename
                 new ExplorerItem() { Original = "Surface 6_wallpaper.jpg", Renamed = "6_wallpaper.jpg", Type = ExplorerItemType.Folder, Children = SubItems },
                 new ExplorerItem() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg", Type = ExplorerItemType.File },
             };
+
+            RegExShortcuts = new ObservableCollection<RegExShortcut>
+            {
+                new RegExShortcut() { Code = "\\.", Description = "Matches any character" },
+                new RegExShortcut() { Code = "\\d", Description = "Any digit, short for [0-9]" },
+                new RegExShortcut() { Code = "\\D", Description = "A non-digit, short for [^0-9]" },
+                new RegExShortcut() { Code = "\\w", Description = "A non-whitespace character, short for [^\\s]" },
+                new RegExShortcut() { Code = "\\S", Description = "A word character, short for [a-zA-Z_0-9]" },
+                new RegExShortcut() { Code = "\\S+", Description = "Several non-whitespace characters" },
+                new RegExShortcut() { Code = "\\b", Description = "Matches a word boundary where a word character is [a-zA-Z0-9_]." },
+            };
         }
+
+     
+    }
+    public class RegExShortcut
+    {
+        public string Code { get; set; }
+        public string Description { get; set; }
     }
 }

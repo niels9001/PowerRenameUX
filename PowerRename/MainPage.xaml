@@ -61,14 +61,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" x:Name="PreviewColumn"/>
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="400" x:Name="PreviewColumn"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
+        <Grid Grid.Row="1" Grid.Column="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
-                                Margin="20,0,20,20"
+                                Margin="0,0,20,20"
                            
                                 CornerRadius="8"
                                 BorderThickness="1"
@@ -81,7 +81,7 @@
                 <CheckBox Content="" Margin="16,0,0,0" />
                 <TextBlock Text="Original" FontWeight="SemiBold" Margin="104,-2,0,0" VerticalAlignment="Center" />
                 <TextBlock Text="Renamed" FontWeight="SemiBold" Margin="412,-2,0,0" VerticalAlignment="Center"  />
-            <Button Content="&#xE16E;" Background="Transparent" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Button Content="&#xE16E;" Background="Transparent" FontFamily="Segoe Fluent Icons" Height="32" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,8,0">
                 <Button.Flyout>
                     <MenuBarItemFlyout Placement="Bottom">
                         <muxc:RadioMenuFlyoutItem Text="Show all files" IsChecked="True" GroupName="Filter"/>
@@ -116,10 +116,10 @@
                    VerticalAlignment="Center"
                    Margin="12,48,0,0" />-->
 
-        <Grid Grid.Column="1"  Grid.Row="1" 
+        <Grid Grid.Column="0"  Grid.Row="1" 
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
-                                Margin="0,0,20,20"
+                                Margin="20,0,20,20"
                                                        
                                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <Grid.RowDefinitions>
@@ -127,6 +127,7 @@
                 <RowDefinition Height="64" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" Padding="0,0,0,16">
+               
                 <TextBox PlaceholderText="Search for" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Search for" FontWeight="SemiBold"/>
@@ -139,7 +140,7 @@
                 
 
 
-                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="-24,24,-24,16" />
+                <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" Margin="0,24,0,16" />
                 <TextBox Margin="0,0,0,32" PlaceholderText="Replace with" Height="48" Padding="12,12,0,0" VerticalContentAlignment="Center"  >
                     <!--<TextBox.Header>
                         <TextBlock Text="Replace with" FontWeight="SemiBold"/>
@@ -158,9 +159,9 @@
                 <TextBlock Text="File types" FontSize="12" Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="4" Grid.Row="1" >
-                    <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include files"/>
-                    <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include folders"/>
-                    <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="{ThemeResource SymbolThemeFontFamily}" ToolTipService.ToolTip="Include subfolders"/>
+                    <ToggleButton Content="&#xE160;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include files"/>
+                    <ToggleButton Content="&#xE8B7;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include folders"/>
+                    <ToggleButton Content="&#xE12F;" Height="32" IsChecked="True" FontFamily="Segoe Fluent Icons" ToolTipService.ToolTip="Include subfolders"/>
                 </StackPanel>
                     
             <TextBlock Text="Replace" FontSize="12" Grid.Column="0" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
@@ -180,7 +181,7 @@
                     <ToggleButton Content="Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Title case"/>
                     <ToggleButton Content="Aa Aa"  FontWeight="Medium" Height="32" ToolTipService.ToolTip="Capitalize Each Word"/>
                     <AppBarSeparator Margin="5,0,5,0" />
-                    <ToggleButton Content="&#xEA40;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Height="32" ToolTipService.ToolTip="Enumerate items"/>
+                    <ToggleButton Content="&#xEA40;" FontFamily="Segoe Fluent Icons" Height="32" ToolTipService.ToolTip="Enumerate items"/>
                 </StackPanel>
              
 
@@ -193,24 +194,38 @@
             <Rectangle Height="1"
                        Fill="{ThemeResource CardStrokeColorDefaultBrush}"
                        HorizontalAlignment="Stretch"
-                       Margin="-24,0,-24,0"
+                       Margin="0,0,0,0"
                        VerticalAlignment="Top"
                        Grid.Row="1" />
 
-            <Button Content="Load presets" Grid.Row="1"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12">
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Photo rule 1" />
-                        <MenuFlyoutItem Text="Date time rule" />
-                        <MenuFlyoutItem Text="And another rule" />
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Spacing="12" Margin="12" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-              
-                <Button x:Name="SettingsBtn" Content=" &#xE713;" FontFamily="{ThemeResource SymbolThemeFontFamily}" Grid.Row="5" Background="Transparent" BorderBrush="Transparent" Grid.Column="1"/>
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Apply" />
+          
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Spacing="8" Margin="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Button Content="Bookmarks"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Photo rule 1" />
+                            <MenuFlyoutItem Text="Date time rule" />
+                            <MenuFlyoutItem Text="And another rule" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                <Button x:Name="SettingsBtn" Height="32" Content=" &#xE713;" FontFamily="Segoe Fluent Icons" Grid.Row="5" Background="Transparent" BorderBrush="Transparent" Grid.Column="1"/>
+             
             </StackPanel>
+            <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource AccentButtonStyle}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE13E;"
+                                   VerticalAlignment="Center"
+                                   Margin="0,2,8,0"
+                                   FontFamily="Segoe Fluent Icons" />
+                        <TextBlock Text="Apply" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
 
 

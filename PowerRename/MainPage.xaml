@@ -103,13 +103,9 @@
         <DataTemplate x:Key="RenamedFileTemplate" x:DataType="local:ExplorerItem">
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="42"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+             
                 <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
-                <ListView  Grid.ColumnSpan="3" ItemsSource="{x:Bind Children}" Grid.Row="1" ItemTemplateSelector="{StaticResource ListExplorerItemTemplateSelector}"/>
-
+              
 
             </Grid>
         </DataTemplate>
@@ -117,8 +113,12 @@
         <DataTemplate x:Key="RenamedFolderTemplate" x:DataType="local:ExplorerItem">
 
             <Grid>
-
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="42"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
+                <ListView  Grid.ColumnSpan="3" ItemsSource="{x:Bind Children}" Margin="-12,0,0,0" Grid.Row="1" ItemTemplateSelector="{StaticResource RenamedListExplorerItemTemplateSelector}"/>
 
 
             </Grid>
@@ -176,6 +176,7 @@
                     <TextBlock Text="Nested listviews"  Foreground="Red"/>
                     <SplitView Name="CoreSplitView"
             Grid.Row="1"
+                               PaneBackground="Transparent"
             DisplayMode="Inline"
             IsPaneOpen="{Binding IsChecked,ElementName=OpenButton}"
             OpenPaneLength="{Binding Value, ElementName=MasterSlider, Mode=OneWay}" >

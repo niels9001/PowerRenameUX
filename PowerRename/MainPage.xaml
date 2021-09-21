@@ -17,116 +17,86 @@
     <Page.Resources>
         <converters:EmptyObjectToObjectConverter x:Key="NullToVisibilityConverter" EmptyValue="Collapsed" NotEmptyValue="Visible"/>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter"/>
-        <DataTemplate x:Key="FolderTemplate" x:DataType="local:ExplorerItem">
-            <controls:TreeViewItem ItemsSource="{x:Bind Children}" IsExpanded="True">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Image Width="16" Source="ms-appx:///Assets/folder.png" Grid.Column="0"/>
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="{x:Bind Original, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" Grid.Column="1"/>
-                        <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}" FontSize="12" Grid.Column="2"/>
-                    </StackPanel>
-                </Grid>
-            </controls:TreeViewItem>
-        </DataTemplate>
-
-        <DataTemplate x:Key="FileTemplate" x:DataType="local:ExplorerItem">
-            <controls:TreeViewItem>
-                <Grid Height="42">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="24" />
-                        <ColumnDefinition Width="*" />
-                       
-                    </Grid.ColumnDefinitions>
-
-                        <Image Width="16" Source="ms-appx:///Assets/file.png" HorizontalAlignment="Left" Grid.Column="0"/>
-                 
-                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="{x:Bind Original, Mode=OneWay}" Opacity="0.6" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" Grid.Column="1"/>
-                        <TextBlock Text="{x:Bind Renamed, Mode=OneWay}"  FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}" FontSize="12" Grid.Column="2"/>
-                    </StackPanel>
-                
-                </Grid>
-            </controls:TreeViewItem>
-        </DataTemplate>
-
+        <local:GridLengthConverter  x:Key="GridLengthConverter"/>
+        
         <local:ExplorerItemTemplateSelector x:Key="ExplorerItemTemplateSelector"
         FolderTemplate="{StaticResource FolderTemplate}"
         FileTemplate="{StaticResource FileTemplate}" />
 
-        <local:ExplorerItemTemplateSelector x:Key="ListExplorerItemTemplateSelector"
-        FolderTemplate="{StaticResource ListFolderTemplate}"
-        FileTemplate="{StaticResource ListFileTemplate}" />
-
-        <local:ExplorerItemTemplateSelector x:Key="RenamedListExplorerItemTemplateSelector"
+        <local:ExplorerItemTemplateSelector x:Key="RenamedExplorerItemTemplateSelector"
         FolderTemplate="{StaticResource RenamedFolderTemplate}"
         FileTemplate="{StaticResource RenamedFileTemplate}" />
 
-        <DataTemplate x:Key="ListFolderTemplate" x:DataType="local:ExplorerItem">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="42"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <DataTemplate x:Key="FileTemplate" x:DataType="local:ExplorerItem">
+            <Grid Height="24" Margin="0,4,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="24" />
-                    <ColumnDefinition Width="320" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Width="16" Source="ms-appx:///Assets/folder.png" Grid.Column="0"/>
-                <TextBlock Text="{x:Bind Original, Mode=OneWay}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" FontSize="12" Grid.Column="1"/>
-                <!--<TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>-->
-              
-                <ListView  Grid.ColumnSpan="3" ItemsSource="{x:Bind Children}" Grid.Row="1" ItemTemplateSelector="{StaticResource ListExplorerItemTemplateSelector}"/>
+
+                <CheckBox Content=""  AutomationProperties.Name="{x:Bind Original}" AutomationProperties.HelpText="{x:Bind Renamed}"  />
+                <Image Width="16" Source="ms-appx:///Assets/file.png" HorizontalAlignment="Left" Grid.Column="1"/>
+
+                <TextBlock Text="{x:Bind Original, Mode=OneWay}" Width="{Binding ElementName=WidthSlider, Path=Value, Mode=OneWay}" FontFamily="SemiBold" Foreground="Black"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="ListFileTemplate" x:DataType="local:ExplorerItem">
-            <Grid >
+        <DataTemplate x:Key="FolderTemplate" x:DataType="local:ExplorerItem">
+            <Grid Margin="0,4,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="24" />
-                    <ColumnDefinition Width="320" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <Image Width="16" Source="ms-appx:///Assets/file.png" HorizontalAlignment="Left" Grid.Column="0"/>
-                <TextBlock Text="{x:Bind Original, Mode=OneWay}" Opacity="0.6" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="12" Grid.Column="1"/>
-                <!--<TextBlock Text="{x:Bind Renamed, Mode=OneWay}"  FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}" FontSize="12" Grid.Column="2"/>-->
+                <CheckBox Content="" AutomationProperties.Name="{x:Bind Original}" AutomationProperties.HelpText="{x:Bind Renamed}"  />
+                <Image Width="16" Source="ms-appx:///Assets/folder.png" HorizontalAlignment="Left" Grid.Column="1"/>
+
+                <TextBlock Text="{x:Bind Original, Mode=OneWay}" Width="{Binding ElementName=WidthSlider, Path=Value, Mode=OneWay}" FontFamily="SemiBold" Foreground="Black"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
+                <muxc:ItemsRepeater Grid.ColumnSpan="4"
+                                    Grid.Row="1"
+                                    ItemsSource="{x:Bind Children}"
+                                    Margin="12,0,0,0"
+                                    ItemTemplate="{StaticResource ExplorerItemTemplateSelector}"/>
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="RenamedFileTemplate" x:DataType="local:ExplorerItem">
+            <Grid Height="24" Margin="0,4,0,0">
 
-            <Grid>
-             
                 <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
-              
-
+    
             </Grid>
         </DataTemplate>
-
         <DataTemplate x:Key="RenamedFolderTemplate" x:DataType="local:ExplorerItem">
-
-            <Grid>
+            <Grid Margin="0,4,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="42"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="24" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{x:Bind Renamed, Mode=OneWay}" FontFamily="SemiBold" Foreground="{ThemeResource SystemColorControlAccentBrush}"  VerticalAlignment="Center"  FontSize="12" Grid.Column="2"/>
-                <ListView  Grid.ColumnSpan="3" ItemsSource="{x:Bind Children}" Margin="-12,0,0,0" Grid.Row="1" ItemTemplateSelector="{StaticResource RenamedListExplorerItemTemplateSelector}"/>
-
-
+                <muxc:ItemsRepeater Grid.ColumnSpan="4"
+                                    Grid.Row="1"
+                                    ItemsSource="{x:Bind Children}"
+                                    Margin="0,0,0,0"
+                                    ItemTemplate="{StaticResource RenamedExplorerItemTemplateSelector}"/>
             </Grid>
         </DataTemplate>
-
     </Page.Resources>
-    <Grid Background="Transparent">
 
+
+  
+
+    <Grid Background="Transparent">
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
@@ -135,7 +105,7 @@
             <ColumnDefinition Width="390" x:Name="PreviewColumn"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
+       
         <Grid Grid.Row="1" Grid.Column="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
                                 VerticalAlignment="Stretch" 
                                 HorizontalAlignment="Stretch" 
@@ -148,11 +118,15 @@
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-          
-                <CheckBox Content="" Margin="16,0,0,0" />
-                <TextBlock Text="Original" FontWeight="SemiBold" Margin="104,-2,0,0" VerticalAlignment="Center" />
-                <TextBlock Text="Renamed" FontWeight="SemiBold" Margin="412,-2,0,0" VerticalAlignment="Center"  />
-            <Button Content="&#xE16E;" Background="Transparent" FontFamily="Segoe Fluent Icons" Height="32" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=WidthSlider,Path=Value, Converter={StaticResource GridLengthConverter}, Mode=OneWay}"/>
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Content="" Margin="16,0,0,0" />
+                <TextBlock Text="Original" FontWeight="SemiBold" Margin="86,-2,0,0" VerticalAlignment="Center" />
+                <TextBlock Text="Renamed" FontWeight="SemiBold" Grid.Column="1" VerticalAlignment="Center"  />
+            <Button Content="&#xE16E;" Background="Transparent" FontFamily="Segoe Fluent Icons" Height="32" Grid.Column="1" BorderThickness="0" HorizontalAlignment="Right" Margin="0,0,8,0">
                 <Button.Flyout>
                     <MenuBarItemFlyout Placement="Bottom">
                         <muxc:RadioMenuFlyoutItem Text="Show all files" IsChecked="True" GroupName="Filter"/>
@@ -160,10 +134,15 @@
                     </MenuBarItemFlyout>
                 </Button.Flyout>
             </Button>
-
+            <Slider Minimum="0" Maximum="1000" Value="320" Grid.ColumnSpan="2" x:Name="WidthSlider" HorizontalAlignment="Stretch" />
             <Rectangle Height="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-            <ScrollViewer Grid.Row="1">
-                <!---->
+
+      
+            <muxc:ItemsRepeater ItemsSource="{x:Bind ExplorerItems}" Margin="16,0,0,0" Grid.Row="1" ItemTemplate="{StaticResource ExplorerItemTemplateSelector}" />
+            <muxc:ItemsRepeater Grid.Column="1" ItemsSource="{x:Bind ExplorerItems}" Margin="0,0,0,0" Grid.Row="1" ItemTemplate="{StaticResource RenamedExplorerItemTemplateSelector}" />
+           
+            <!--<ScrollViewer Grid.Row="1" Visibility="Collapsed">
+                --><!----><!--
 
                 <Grid Name="MasterGrid">
                     <Grid.RowDefinitions>
@@ -205,12 +184,12 @@
                         </Grid>
                     </SplitView>
                 </Grid>
-                <!--<muxc:TreeView x:Name="FileTree" Margin="2,12,12,12"
+                --><!--<muxc:TreeView x:Name="FileTree" Margin="2,12,12,12"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
                                ItemsSource="{x:Bind ExplorerItems}" 
-                               ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" SelectionMode="Multiple"/>-->
-            </ScrollViewer>
+                               ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}" SelectionMode="Multiple"/>--><!--
+            </ScrollViewer>-->
          
         </Grid>
 
@@ -448,5 +427,6 @@
             <!--<Button Content="&#xE10E;" Margin="0,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderThickness="0"  Background="Transparent" Foreground="{ThemeResource SystemColorControlAccentBrush}" />
             <Button Content="&#xE10D;" IsEnabled="False" Margin="-8,-14,0,0" FontFamily="{ThemeResource SymbolThemeFontFamily}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" />-->
         </StackPanel>
+     
     </Grid>
 </Page>

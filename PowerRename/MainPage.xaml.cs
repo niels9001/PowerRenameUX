@@ -24,7 +24,8 @@ namespace PowerRename
     public sealed partial class MainPage : Page
     {
         public ObservableCollection<ExplorerItem> ExplorerItems { get; set; }
-        public ObservableCollection<RegExShortcut> RegExShortcuts { get; set; }
+        public ObservableCollection<PatternSnippet> RegExShortcuts { get; set; }
+        public ObservableCollection<PatternSnippet> DateTimeShortcuts { get; set; }
 
         public MainPage()
         {
@@ -55,21 +56,58 @@ namespace PowerRename
                 new ExplorerItem() { Original = "Surface 7_wallpaper.jpg", Renamed = "7_wallpaper.jpg", Type = ExplorerItemType.File },
             };
 
-            RegExShortcuts = new ObservableCollection<RegExShortcut>
+            RegExShortcuts = new ObservableCollection<PatternSnippet>
             {
-                new RegExShortcut() { Code = "\\.", Description = "Matches any character" },
-                new RegExShortcut() { Code = "\\d", Description = "Any digit, short for [0-9]" },
-                new RegExShortcut() { Code = "\\D", Description = "A non-digit, short for [^0-9]" },
-                new RegExShortcut() { Code = "\\w", Description = "A non-whitespace character, short for [^\\s]" },
-                new RegExShortcut() { Code = "\\S", Description = "A word character, short for [a-zA-Z_0-9]" },
-                new RegExShortcut() { Code = "\\S+", Description = "Several non-whitespace characters" },
-                new RegExShortcut() { Code = "\\b", Description = "Matches a word boundary where a word character is [a-zA-Z0-9_]." },
+                new PatternSnippet() { Code = "\\.", Description = "Matches any character" },
+                new PatternSnippet() { Code = "\\d", Description = "Any digit, short for [0-9]" },
+                new PatternSnippet() { Code = "\\D", Description = "A non-digit, short for [^0-9]" },
+                new PatternSnippet() { Code = "\\w", Description = "A non-whitespace character, short for [^\\s]" },
+                new PatternSnippet() { Code = "\\S", Description = "A word character, short for [a-zA-Z_0-9]" },
+                new PatternSnippet() { Code = "\\S+", Description = "Several non-whitespace characters" },
+                new PatternSnippet() { Code = "\\b", Description = "Matches a word boundary where a word character is [a-zA-Z0-9_]." },
+            };
+
+            DateTimeShortcuts = new ObservableCollection<PatternSnippet>
+            {
+                new PatternSnippet() { Code = "$YYYY", Description = "Year represented by a full four or five digits, depending on the calendar used" },
+                new PatternSnippet() { Code = "$YY", Description = "Year represented only by the last two digits. A leading zero is added for single-digit years" },
+                new PatternSnippet() { Code = "$Y", Description = "Year represented only by the last digit." },
+                new PatternSnippet() { Code = "$MMMM", Description = "Name of the month" },
+                new PatternSnippet() { Code = "$MMM", Description = "Abbreviated name of the month" },
+                new PatternSnippet() { Code = "$MM", Description = "Month as digits with leading zeros for single-digit months" },
+                new PatternSnippet() { Code = "$M", Description = "Month as digits without leading zeros for single-digit months" },
+                new PatternSnippet() { Code = "$DDDD", Description = "Name of the day of the week" },
+                new PatternSnippet() { Code = "$DDD", Description = "Abbreviated name of the day of the week" },
+                new PatternSnippet() { Code = "$DD", Description = "Day of the month as digits with leading zeros for single-digit days" },
+                new PatternSnippet() { Code = "$D", Description = "Day of the month as digits without leading zeros for single-digit days" },
+                new PatternSnippet() { Code = "$hh", Description = "Hours with leading zeros for single-digit hours" },
+                new PatternSnippet() { Code = "$h", Description = "Hours without leading zeros for single-digit hours" },
+                new PatternSnippet() { Code = "$mm", Description = "Minutes with leading zeros for single-digit minutes" },
+                new PatternSnippet() { Code = "$m", Description = "Minutes without leading zeros for single-digit minutes" },
+                new PatternSnippet() { Code = "$ss", Description = "Seconds with leading zeros for single-digit seconds" },
+                new PatternSnippet() { Code = "$s", Description = "Seconds without leading zeros for single-digit seconds" },
+                new PatternSnippet() { Code = "$fff", Description = "Milliseconds represented by full three digits" },
+                new PatternSnippet() { Code = "$ff", Description = "Milliseconds represented only by the first two digit" },
+                new PatternSnippet() { Code = "$f", Description = "Milliseconds represented only by the first digit" },
             };
         }
 
-     
+        private void DateTime_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            PatternSnippet s = e.ClickedItem as PatternSnippet;
+            DateTimeFlyout.Hide();
+            ReplaceForTxt.Text = ReplaceForTxt.Text + s.Code;
+
+        }
+
+        private void RegEx_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            PatternSnippet s = e.ClickedItem as PatternSnippet;
+            RegExFlyout.Hide();
+            SearchForTxt.Text = SearchForTxt.Text + s.Code;
+        }
     }
-    public class RegExShortcut
+    public class PatternSnippet
     {
         public string Code { get; set; }
         public string Description { get; set; }

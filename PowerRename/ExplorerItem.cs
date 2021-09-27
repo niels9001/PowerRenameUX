@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace PowerRename
 {
@@ -49,6 +52,22 @@ namespace PowerRename
             {
                 return this.FolderTemplate;
             }
+        }
+    }
+
+    public sealed class GridLengthConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            double val = (double)value;
+            GridLength gridLength = new GridLength(val, GridUnitType.Pixel);
+            return gridLength;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            GridLength val = (GridLength)value;
+
+            return val.Value;
         }
     }
 }

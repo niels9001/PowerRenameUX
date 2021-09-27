@@ -31,12 +31,28 @@ namespace PowerRename
         {
             this.InitializeComponent();
 
+            List<ExplorerItem> SubSubItems = new List<ExplorerItem>();
+            SubSubItems.Add(new ExplorerItem()
+            {
+                Original = "Surface 15_wallpaper.jpg",
+                Renamed = "15_wallpaper.jpg",
+                Type = ExplorerItemType.File
+            });
+            SubSubItems.Add(new ExplorerItem()
+            {
+                Original = "Surface 16_wallpaper.jpg",
+                Renamed = "16_wallpaper.jpg",
+                Type = ExplorerItemType.File
+            });
+
             List<ExplorerItem> SubItems = new List<ExplorerItem>();
             SubItems.Add(new ExplorerItem()
             {
                 Original = "Surface 15_wallpaper.jpg",
                 Renamed = "15_wallpaper.jpg",
-                Type = ExplorerItemType.File
+                Type = ExplorerItemType.Folder,
+                Children = SubSubItems
+
             });
             SubItems.Add(new ExplorerItem()
             {
